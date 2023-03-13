@@ -1,0 +1,63 @@
+[
+	{
+		"question": "Create a variable 'i' with the value of 10",
+		"code": "// write your code below \n",
+		"keywords": ["let", "i", "10"],
+		"assert": "i === 10",
+		"errorMessage": "The value of i is not correct"
+	},
+	{
+		"question": "Create a constant variable 'j' with the value of 20",
+		"code": "// write your code below\n",
+		"keywords": ["const", "j", "20"],
+		"assert": "j === 20",
+		"errorMessage": "The value of j is not correct"
+	},
+	{
+		"question": "Set the value of the variable 'i' so that the following equation is correct: <u>i + 7 = 10</u>",
+		"code": "// edit the code below\nlet i = 50;",
+		"keywords": ["i"],
+		"assert": "i+7 === 10",
+		"errorMessage": "The value of i is not correct for the equation to be to correct"
+	},
+	{
+		"question": "Change the loop so that the value of 'x' <u>increases by 2 per loop</u> (instead of 1 as it is currently)",
+		"code": "let x = 0;\n\nfor (let i = 0; i < 10; i++) {\n// edit the expression below\nx++;\n}",
+		"keywords": ["+=", "2"],
+		"assert": "x === 20",
+		"errorMessage": "The value of x is not correct at the end of the loop, change the amount x gets incremented with"
+	},
+	{
+		"question": "Set the string variable 'x' so that the loop <u>returns 4</u>",
+		"code": "// edit the code below\nlet a = 0;\nlet x = \"Vanilla\";\n\nfor (let i = 0; i < x.length; i++) {\na++;\n}",
+		"keywords": ["x"],
+		"assert": "x.length === 4 && a === 4",
+		"errorMessage": "The loop does not return 4, make sure to check the length of the variable x"
+	},
+	{
+		"question": "Use a function from the 'math' class to round to create a function that takes in a number as a parameter and <u>rounds it up to the nearest non decimal number</u> ",
+		"code": "function round(number) {\n// write your code below here\nreturn \n}",
+		"keywords": ["Math", "ceil()"],
+		"assert": "round(2.3) === 3",
+		"errorMessage": "The function does not round the parameter 'number' to the nearest non decimal number"
+	},
+	{
+		"question": "Change the amount of loops this codeblock goes through to 4. Do this <u>without changing the value of x and i</u>",
+		"code": "// write your code below\n",
+		"keywords": [""]
+	},
+	{
+		"question": "Generate a random number between <u>0 and 10</u> using a function derived from the \"math\" class.<br>Store this number in a variable called <u>randomNumber</u>",
+		"code": "// write your code below\n",
+		"keywords": ["Math", "random()", "randomNumber"]
+	},
+	{
+		"question": "Edit the function named \"max\" so it always returns the larger number between \"x\" and \"i\"  You are not allowed to set or modify the values of \"x\" and \"y\" <br> Note: the values of \"x\" and \"y\" will be random",
+		"code": "// write your code below\nfunction max(x, y){\n\n}",
+		"keywords": ["Math", "max()"],
+		"checks": [
+			"let x = Math.floor(Math.random() * 10)",
+			"let y = Math.floor(Math.random() * 10)"
+		]
+	}
+]
