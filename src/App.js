@@ -7,9 +7,23 @@ import './App.css';
 
 export default function App() {
 	const count = useRef(0);
+	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' });
+	const [infoScreen, setInfoScreen] = useState();
 	const [keywords, setKeywords] = useState([]);
 	const [code, setCode] = useState('');
 	const [userCode, setUserCode] = useState('');
+
+	function toggleInfoScreen() {
+		setInfoScreen((prev) => !prev);
+
+		const infoHolder = document.getElementById('infoHolder');
+
+		if (!infoScreen) {
+			infoHolder.style.visibility = 'visible';
+		} else {
+			infoHolder.style.visibility = 'hidden';
+		}
+	}
 
 	function nextQuestion() {
 		updateValues('+');
@@ -30,10 +44,26 @@ export default function App() {
 			default:
 		}
 
-		const { question, code, keywords } = questions[count.current];
+		const {
+			question,
+			code,
+			keywords,
+			title,
+			infoBeforeCode,
+			infoAfterCode,
+			infoCode,
+		} = questions[count.current];
 
 		document.getElementById('question').innerHTML = question;
 		document.getElementById('output').innerHTML = '';
+
+		if (title) {
+			document.getElementById('title').innerHTML = title;
+			document.getElementById('beforeCode').innerHTML = infoBeforeCode;
+			document.getElementById('afterCode').innerHTML = infoAfterCode;
+			setInfoCode({ lines: infoCode.length, code: infoCode.join('\n') });
+			toggleInfoScreen();
+		}
 
 		setCode(code);
 		setUserCode(code);
@@ -55,7 +85,7 @@ export default function App() {
 				? 'Correct!'
 				: new EvalError(errorMessage);
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 			output.innerHTML = err;
 		}
 	}
@@ -66,6 +96,32 @@ export default function App() {
 
 	return (
 		<div id='container'>
+			<div id='infoHolder'>
+				<button onClick={toggleInfoScreen}>Close</button>
+				<h1 id='title'>placeholder</h1>
+				<p id='beforeCode'></p>
+				<CodeMirror
+					id='codeExample'
+					theme={sublimeInit({
+						settings: {
+							caret: '#c6c6c6',
+							fontFamily: 'monospace',
+						},
+					})}
+					value={infoCode.code}
+					height={22 * infoCode.lines + 'px'}
+					width='600px'
+					readOnly={true}
+					tabIndex={4}
+					extensions={[javascript()]}
+				/>
+				<p id='afterCode'></p>
+			</div>
+
+			<button id='infoBtn' onClick={toggleInfoScreen}>
+				Info
+			</button>
+
 			<section id='questionSection'>
 				<h1 id='question'>Placeholder</h1>
 			</section>

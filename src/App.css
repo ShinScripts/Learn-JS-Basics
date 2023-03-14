@@ -32,3 +32,43 @@ button {
 #code-input {
 	text-align: left;
 }
+
+#infoHolder {
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	backdrop-filter: blur(10px);
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999 !important;
+	width: 100%;
+	height: 100%;
+}
+
+#infoHolder button,
+#infoBtn {
+	position: absolute;
+	right: 14px;
+	top: 14px;
+	min-width: 60px;
+	min-height: 40px;
+}
+
+#codeExample {
+	text-align: left;
+}
+
+p {
+	width: 90%;
+}
+
+@keyframes pointUp {
+	from {
+		color: #00ff00;
+	}
+	to {
+		color: white;
+	}
+}
