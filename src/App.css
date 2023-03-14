@@ -85,7 +85,27 @@ hr {
 	width: 80%;
 }
 
+.alt {
+	animation-name: pointUp;
+	animation-duration: 2s;
+}
+
+.alt2 {
+	animation-name: pointUp2;
+}
+
 @keyframes pointUp {
+	from {
+		color: #00ff00;
+		text-shadow: #00ff00 0 0 10px;
+	}
+	to {
+		color: white;
+		text-shadow: #00ff0000 0 0 0px;
+	}
+}
+
+@keyframes pointUp2 {
 	from {
 		color: #00ff00;
 		text-shadow: #00ff00 0 0 10px;

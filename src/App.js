@@ -102,9 +102,7 @@ export default function App() {
 			setPoints((prev) => prev + 100);
 
 			// animation restart doesnt work
-			document.getElementById('points').style = 'none';
-			document.getElementById('points').style.animation =
-				'pointUp 2s linear ';
+			document.getElementById('points').classList.toggle('alt2');
 
 			setCompletedQuestions((prev) => [...prev, count.current]);
 		}
@@ -140,7 +138,9 @@ export default function App() {
 				<p id='afterCode'></p>
 			</div>
 
-			<p id='points'>Points: {points}</p>
+			<p className='alt' id='points'>
+				Points: {points}
+			</p>
 
 			<button id='infoBtn' onClick={toggleInfoScreen}>
 				Info
