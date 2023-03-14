@@ -1,6 +1,6 @@
 [
 	{
-		"question": "Create a variable 'i' with the value of 10",
+		"question": "Create a variable <mark>i</mark> with the value of <mark>10</mark>",
 		"code": "// write your code below \n",
 		"keywords": ["let", "i", "10"],
 		"assert": "i === 10",
@@ -26,14 +26,14 @@
 		]
 	},
 	{
-		"question": "Set the value of the variable 'i' so that the following equation is correct: <u>i + 7 = 10</u>",
+		"question": "Set the value of the variable <mark>i</mark> so that the following equation is correct: <u>i + 7 = 10</u>",
 		"code": "// edit the code below\nlet i = 50;",
 		"keywords": ["i"],
 		"assert": "i+7 === 10",
 		"errorMessage": "The value of i is not correct for the equation to be to correct"
 	},
 	{
-		"question": "Change the loop so that the value of 'x' <u>increases by 2 per loop</u> (instead of 1 as it is currently)",
+		"question": "Change the loop so that the value of <mark>x</mark> <u>increases by 2 per loop</u> (instead of 1 as it is currently)",
 		"code": "let x = 0;\n\nfor (let i = 0; i < 10; i++) {\n// edit the expression below\nx++;\n}",
 		"keywords": ["+=", "2"],
 		"assert": "x === 20",
@@ -44,7 +44,7 @@
 		"infoCode": ["for (let i = 1; i <= 10; i++) {", "console.log(i);", "}"]
 	},
 	{
-		"question": "Set the string variable 'x' so that the loop <u>returns 4</u>",
+		"question": "Set the string variable <mark>x</mark> so that the loop <u>returns 4</u>",
 		"code": "// edit the code below\nlet a = 0;\nlet x = \"Vanilla\";\n\nfor (let i = 0; i < x.length; i++) {\na++;\n}",
 		"keywords": ["x"],
 		"assert": "x.length === 4 && a === 4",
@@ -60,7 +60,7 @@
 		]
 	},
 	{
-		"question": "Use a function from the 'math' class to round to create a function that takes in a number as a parameter and <u>rounds it up to the nearest non decimal number</u> ",
+		"question": "Use a function from the <mark>Math</mark> class to round to create a function that takes in a number as a parameter and <u>rounds it up</u> to the nearest non decimal number ",
 		"code": "function round(number) {\n// write your code below here\nreturn \n}",
 		"keywords": ["Math", "ceil()"],
 		"assert": "round(2.3) === 3",
@@ -90,22 +90,10 @@
 		]
 	},
 	{
-		"question": "Change the amount of loops this codeblock goes through to 4. Do this <u>without changing the value of x and i</u>",
-		"code": "// write your code below\n",
-		"keywords": [""]
-	},
-	{
-		"question": "Generate a random number between <u>0 and 10</u> using a function derived from the \"math\" class.<br>Store this number in a variable called <u>randomNumber</u>",
-		"code": "// write your code below\n",
-		"keywords": ["Math", "random()", "randomNumber"]
-	},
-	{
-		"question": "Edit the function named \"max\" so it always returns the larger number between \"x\" and \"i\"  You are not allowed to set or modify the values of \"x\" and \"y\" <br> Note: the values of \"x\" and \"y\" will be random",
+		"question": "Edit the function named <mark>max</mark> so it always returns the larger number between <mark>x</mark> and <mark>y</mark>.<br>Also write a function named <mark>min</mark> that returns the smallest of 2 parameters! <br><br><i>Note: the values of <mark>x</mark> and <mark>y</mark> will be random</i>",
 		"code": "// write your code below\nfunction max(x, y){\n\n}",
-		"keywords": ["Math", "max()"],
-		"checks": [
-			"let x = Math.floor(Math.random() * 10)",
-			"let y = Math.floor(Math.random() * 10)"
-		]
+		"keywords": ["Math", "max()", "return", "min()"],
+		"assert": "max(6,8) === 8 && max(1,6) === 6 && min(2,5) === 2 && min(14,21) === 14",
+		"errorMessage": "Either <mark>max</mark> does not return the largest number or <mark>min</mark> does not return the smallest number"
 	}
 ]

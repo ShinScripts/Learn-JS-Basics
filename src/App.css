@@ -19,6 +19,14 @@ button {
 	min-height: 50px;
 }
 
+button:hover {
+	cursor: pointer;
+}
+
+button:disabled:hover {
+	cursor: default;
+}
+
 #keywords {
 	position: absolute;
 	align-items: center;
@@ -60,15 +68,30 @@ button {
 	text-align: left;
 }
 
+#points {
+	font-size: 2rem;
+	width: fit-content;
+	position: absolute;
+	left: 14px;
+	top: 14px;
+	margin: 0;
+}
+
 p {
 	width: 90%;
+}
+
+hr {
+	width: 80%;
 }
 
 @keyframes pointUp {
 	from {
 		color: #00ff00;
+		text-shadow: #00ff00 0 0 10px;
 	}
 	to {
 		color: white;
+		text-shadow: #00ff0000 0 0 0px;
 	}
 }

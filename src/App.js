@@ -7,6 +7,10 @@ import './App.css';
 
 export default function App() {
 	const count = useRef(0);
+
+	const [points, setPoints] = useState(0);
+	const [completedQuestions, setCompletedQuestions] = useState([-1]);
+
 	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' });
 	const [infoScreen, setInfoScreen] = useState();
 	const [keywords, setKeywords] = useState([]);
@@ -80,18 +84,36 @@ export default function App() {
 		const output = document.getElementById('output');
 		const { assert, errorMessage } = questions[count.current];
 
+		const correctMessage = 'Correct!';
+
 		try {
 			output.innerHTML = eval(`${content}\n${assert}`)
-				? 'Correct!'
+				? correctMessage
 				: new EvalError(errorMessage);
 		} catch (err) {
 			console.error(err);
 			output.innerHTML = err;
 		}
+
+		if (
+			output.innerHTML === correctMessage &&
+			!completedQuestions.includes(count.current)
+		) {
+			setPoints((prev) => prev + 100);
+
+			// animation restart doesnt work
+			document.getElementById('points').style = 'none';
+			document.getElementById('points').style.animation =
+				'pointUp 2s linear ';
+
+			setCompletedQuestions((prev) => [...prev, count.current]);
+		}
 	}
 
 	useEffect(() => {
 		updateValues();
+
+		setCompletedQuestions([]);
 	}, []);
 
 	return (
@@ -118,6 +140,8 @@ export default function App() {
 				<p id='afterCode'></p>
 			</div>
 
+			<p id='points'>Points: {points}</p>
+
 			<button id='infoBtn' onClick={toggleInfoScreen}>
 				Info
 			</button>
@@ -135,6 +159,7 @@ export default function App() {
 				</ul>
 			</div>
 
+			<hr />
 			<h1>Compiler</h1>
 
 			<CodeMirror
@@ -169,10 +194,13 @@ export default function App() {
 					disabled={count.current === questions.length - 1}
 					onClick={nextQuestion}
 				>
-					Next
+					{completedQuestions.includes(count.current)
+						? 'Next'
+						: 'Skip'}
 				</button>
 			</div>
 
+			<hr />
 			<h2>Output:</h2>
 			<pre id='output'></pre>
 		</div>
