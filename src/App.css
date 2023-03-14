@@ -91,7 +91,8 @@ hr {
 }
 
 .alt2 {
-	animation-name: pointUp2;
+	animation-name: pointDown;
+	animation-duration: 2s;
 }
 
 @keyframes pointUp {
@@ -105,10 +106,10 @@ hr {
 	}
 }
 
-@keyframes pointUp2 {
+@keyframes pointDown {
 	from {
-		color: #00ff00;
-		text-shadow: #00ff00 0 0 10px;
+		color: #ff0000;
+		text-shadow: #ff0000 0 0 10px;
 	}
 	to {
 		color: white;

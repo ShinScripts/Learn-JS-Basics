@@ -9,7 +9,8 @@ export default function App() {
 	const count = useRef(0);
 
 	const [points, setPoints] = useState(0);
-	const [completedQuestions, setCompletedQuestions] = useState([-1]);
+	const [completedQuestions, setCompletedQuestions] = useState([0]);
+	const [skippedQuestions, setSkippedQuestions] = useState([0]);
 
 	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' });
 	const [infoScreen, setInfoScreen] = useState();
@@ -30,6 +31,16 @@ export default function App() {
 	}
 
 	function nextQuestion() {
+		if (document.getElementById('next').innerHTML === 'Skip') {
+			document.getElementById('points').classList.toggle('alt2');
+
+			setTimeout(() => {
+				document.getElementById('points').classList.toggle('alt2');
+			}, 2000);
+			setSkippedQuestions((prev) => [...prev, count.current]);
+			setPoints((prev) => prev - 50);
+		}
+
 		updateValues('+');
 	}
 
@@ -99,10 +110,15 @@ export default function App() {
 			output.innerHTML === correctMessage &&
 			!completedQuestions.includes(count.current)
 		) {
+			console.log(count.current, skippedQuestions);
+
 			setPoints((prev) => prev + 100);
 
-			// animation restart doesnt work
-			document.getElementById('points').classList.toggle('alt2');
+			document.getElementById('points').classList.toggle('alt');
+
+			setTimeout(() => {
+				document.getElementById('points').classList.toggle('alt');
+			}, 2000);
 
 			setCompletedQuestions((prev) => [...prev, count.current]);
 		}
@@ -112,6 +128,7 @@ export default function App() {
 		updateValues();
 
 		setCompletedQuestions([]);
+		setSkippedQuestions([]);
 	}, []);
 
 	return (
@@ -138,9 +155,7 @@ export default function App() {
 				<p id='afterCode'></p>
 			</div>
 
-			<p className='alt' id='points'>
-				Points: {points}
-			</p>
+			<p id='points'>Points: {points}</p>
 
 			<button id='infoBtn' onClick={toggleInfoScreen}>
 				Info
