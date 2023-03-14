@@ -145,7 +145,7 @@ export default function App() {
 				<h1>
 					Learn <mark>JavaScript</mark> Basics
 				</h1>
-				<p>A learning game by Diar Ahmed and Shahin Mohseni</p>
+				<p>A learning game built by Diar Ahmed and Shahin Mohseni</p>
 				<br />
 				<p>
 					Try to complete all questions (
