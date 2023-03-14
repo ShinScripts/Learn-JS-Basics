@@ -13,7 +13,7 @@ export default function App() {
 	const [skippedQuestions, setSkippedQuestions] = useState([0]);
 
 	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' });
-	const [infoScreen, setInfoScreen] = useState();
+	const [infoScreen, setInfoScreen] = useState(false);
 	const [keywords, setKeywords] = useState([]);
 	const [code, setCode] = useState('');
 	const [userCode, setUserCode] = useState('');
@@ -37,8 +37,8 @@ export default function App() {
 			setTimeout(() => {
 				document.getElementById('points').classList.toggle('alt2');
 			}, 2000);
-			setSkippedQuestions((prev) => [...prev, count.current]);
-			setPoints((prev) => prev - 50);
+			// setSkippedQuestions((prev) => [...prev, count.current]);
+			// setPoints((prev) => prev - 50);
 		}
 
 		updateValues('+');
@@ -95,13 +95,20 @@ export default function App() {
 		const output = document.getElementById('output');
 		const { assert, errorMessage } = questions[count.current];
 
-		const correctMessage = 'Correct!';
+		const correctMessage =
+			'Correct! Press the "Next" button to proceed to the next question!';
 
 		try {
-			output.innerHTML = eval(`${content}\n${assert}`)
-				? correctMessage
-				: new EvalError(errorMessage);
+			const res = eval(`${content}\n${assert}`);
+
+			if (res) {
+				output.style.color = '#00ff00';
+				output.innerHTML = correctMessage;
+			} else {
+				throw new EvalError(errorMessage);
+			}
 		} catch (err) {
+			output.style.color = '#ff0000';
 			console.error(err);
 			output.innerHTML = err;
 		}
@@ -127,12 +134,33 @@ export default function App() {
 	useEffect(() => {
 		updateValues();
 
+		setInfoScreen(true);
 		setCompletedQuestions([]);
 		setSkippedQuestions([]);
 	}, []);
 
 	return (
 		<div id='container'>
+			<div id='intro'>
+				<h1>
+					Learn <mark>JavaScript</mark> Basics
+				</h1>
+				<p>A learning game by Diar Ahmed and Shahin Mohseni</p>
+				<br />
+				<p>
+					Try to complete all questions (
+					{questions.length * 100 + ' points'})
+				</p>
+				<button
+					onClick={() =>
+						(document.getElementById('intro').style.visibility =
+							'hidden')
+					}
+				>
+					Start!
+				</button>
+			</div>
+
 			<div id='infoHolder'>
 				<button onClick={toggleInfoScreen}>Close</button>
 				<h1 id='title'>placeholder</h1>
