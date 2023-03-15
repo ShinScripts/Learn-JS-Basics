@@ -59,6 +59,54 @@
 	align-items: center;
 }
 
+#finish {
+	font-size: 2rem;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	display: flex;
+	background: linear-gradient(
+		124deg,
+		#ff2400,
+		#e81d1d,
+		#e8b71d,
+		#e3e81d,
+		#1de840,
+		#1ddde8,
+		#2b1de8,
+		#dd00f3,
+		#dd00f3
+	);
+	background-clip: text;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	color: transparent;
+	background-size: 1800% 1800%;
+	animation: rainbow 18s ease infinite;
+	backdrop-filter: blur(20px);
+	z-index: 999 !important;
+	opacity: 0%;
+	visibility: hidden;
+}
+
+#finish button:hover {
+	background: linear-gradient(
+		124deg,
+		#ff2400,
+		#e81d1d,
+		#e8b71d,
+		#e3e81d,
+		#1de840,
+		#1ddde8,
+		#2b1de8,
+		#dd00f3,
+		#dd00f3
+	);
+	background-size: 1800% 1800%;
+	animation: rainbow 18s ease infinite;
+}
+
 button {
 	margin: 10px;
 	min-width: 150px;

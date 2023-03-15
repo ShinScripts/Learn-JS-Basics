@@ -18,6 +18,19 @@ export default function App() {
 	const [code, setCode] = useState('');
 	const [userCode, setUserCode] = useState('');
 
+	function restart() {
+		count.current = 0;
+
+		setPoints(0);
+		setCompletedQuestions([]);
+		setSkippedQuestions([]);
+		setInfoScreen(true);
+
+		document.getElementById('finish').style.visibility = 'hidden';
+		document.getElementById('finish').style.opacity = '0%';
+		document.getElementById('intro').style.visibility = 'visible';
+	}
+
 	function toggleInfoScreen() {
 		setInfoScreen((prev) => !prev);
 
@@ -31,14 +44,50 @@ export default function App() {
 	}
 
 	function nextQuestion() {
+		if (document.getElementById('next').innerHTML === 'Finish') {
+			document.getElementById('finish').style.visibility = 'visible';
+
+			setTimeout(() => {
+				let text;
+
+				if (points === questions.length * 100) {
+					text =
+						"WOAH, you're born to be a programmer! Nice job on completing all questions!";
+				} else if (points === (questions.length - 1) * 100) {
+					text =
+						'So close, yet so far! Would you like to try again and see if you can answer all the questions?';
+				} else {
+					text =
+						"Not quite there yet, however if you just keep trying I have no doubts you'll make it!";
+				}
+
+				let interval = 0;
+				for (const char of text) {
+					setTimeout(() => {
+						document.getElementById('text').innerHTML += char;
+					}, interval);
+					interval += 50;
+				}
+			}, 1000);
+
+			let i = 0;
+
+			const i1 = setInterval(() => {
+				if (i > 99) clearInterval(i1);
+
+				document.getElementById('finish').style.opacity = `${i}%`;
+				i++;
+			}, 10);
+
+			return;
+		}
+
 		if (document.getElementById('next').innerHTML === 'Skip') {
 			document.getElementById('points').classList.toggle('alt2');
 
 			setTimeout(() => {
 				document.getElementById('points').classList.toggle('alt2');
 			}, 2000);
-			// setSkippedQuestions((prev) => [...prev, count.current]);
-			// setPoints((prev) => prev - 50);
 		}
 
 		updateValues('+');
@@ -161,6 +210,13 @@ export default function App() {
 				</button>
 			</div>
 
+			<div id='finish'>
+				<h1>Well done!</h1>
+				<p>{'Points: ' + points + '/' + questions.length * 100}</p>
+				<p id='text'></p>
+				<button onClick={restart}>Restart</button>
+			</div>
+
 			<div id='infoHolder'>
 				<button onClick={toggleInfoScreen}>Close</button>
 				<h1 id='title'>placeholder</h1>
@@ -232,12 +288,10 @@ export default function App() {
 				<button id='compile-btn' onClick={compile}>
 					Compile
 				</button>
-				<button
-					id='next'
-					disabled={count.current === questions.length - 1}
-					onClick={nextQuestion}
-				>
-					{completedQuestions.includes(count.current)
+				<button id='next' onClick={nextQuestion}>
+					{count.current === questions.length - 1
+						? 'Finish'
+						: completedQuestions.includes(count.current)
 						? 'Next'
 						: 'Skip'}
 				</button>
