@@ -20,11 +20,13 @@ export default function App() {
 
 	function restart() {
 		count.current = 0;
-
 		setPoints(0);
+
+		updateValues();
+
+		setInfoScreen(true);
 		setCompletedQuestions([]);
 		setSkippedQuestions([]);
-		setInfoScreen(true);
 
 		document.getElementById('finish').style.visibility = 'hidden';
 		document.getElementById('finish').style.opacity = '0%';
@@ -46,6 +48,7 @@ export default function App() {
 	function nextQuestion() {
 		if (document.getElementById('next').innerHTML === 'Finish') {
 			document.getElementById('finish').style.visibility = 'visible';
+			document.getElementById('text').innerHTML = '';
 
 			setTimeout(() => {
 				let text;
