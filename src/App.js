@@ -13,7 +13,7 @@ export default function App() {
 	const [skippedQuestions, setSkippedQuestions] = useState([0]);
 
 	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' });
-	const [infoScreen, setInfoScreen] = useState(false);
+	const [infoScreenVisibility, setInfoScreenVisibility] = useState(false);
 	const [keywords, setKeywords] = useState([]);
 	const [code, setCode] = useState('');
 	const [userCode, setUserCode] = useState('');
@@ -24,7 +24,7 @@ export default function App() {
 
 		updateValues();
 
-		setInfoScreen(true);
+		setInfoScreenVisibility(true);
 		setCompletedQuestions([]);
 		setSkippedQuestions([]);
 
@@ -34,11 +34,11 @@ export default function App() {
 	}
 
 	function toggleInfoScreen() {
-		setInfoScreen((prev) => !prev);
+		setInfoScreenVisibility((prev) => !prev);
 
 		const infoHolder = document.getElementById('infoHolder');
 
-		if (!infoScreen) {
+		if (!infoScreenVisibility) {
 			infoHolder.style.visibility = 'visible';
 		} else {
 			infoHolder.style.visibility = 'hidden';
@@ -100,6 +100,7 @@ export default function App() {
 		updateValues('-');
 	}
 
+	// tar in en parameter
 	function updateValues(type) {
 		switch (type) {
 			case '+':
@@ -186,7 +187,7 @@ export default function App() {
 	useEffect(() => {
 		updateValues();
 
-		setInfoScreen(true);
+		setInfoScreenVisibility(true);
 		setCompletedQuestions([]);
 		setSkippedQuestions([]);
 	}, []);
