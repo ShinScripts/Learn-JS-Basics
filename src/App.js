@@ -1,3 +1,5 @@
+// Diar Ahmed diah
+// Shahin Mohseni shmo6177
 import { useEffect, useRef, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
@@ -6,18 +8,19 @@ import questions from './questions.json';
 import './App.css';
 
 export default function App() {
-	const count = useRef(0);
+	const count = useRef(0); // creating a reference point so we can keep track of the count
 
-	const [points, setPoints] = useState(0);
-	const [completedQuestions, setCompletedQuestions] = useState([0]);
-	const [skippedQuestions, setSkippedQuestions] = useState([0]);
+	const [points, setPoints] = useState(0); // create a state of points (the page re-renders everytime "points" changes)
+	const [completedQuestions, setCompletedQuestions] = useState([0]); // create a state
+	const [skippedQuestions, setSkippedQuestions] = useState([0]); // create a state
 
-	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' });
-	const [infoScreenVisibility, setInfoScreenVisibility] = useState(false);
-	const [keywords, setKeywords] = useState([]);
-	const [code, setCode] = useState('');
-	const [userCode, setUserCode] = useState('');
+	const [infoCode, setInfoCode] = useState({ lines: 0, code: '' }); // create a state
+	const [infoScreenVisibility, setInfoScreenVisibility] = useState(false); // create a state
+	const [keywords, setKeywords] = useState([]); // create a state
+	const [code, setCode] = useState(''); // create a state
+	const [userCode, setUserCode] = useState(''); // create a state
 
+	// the restart function to set the game to its initial stage
 	function restart() {
 		count.current = 0;
 		setPoints(0);
@@ -33,6 +36,7 @@ export default function App() {
 		document.getElementById('intro').style.visibility = 'visible';
 	}
 
+	// toggles the info screen
 	function toggleInfoScreen() {
 		setInfoScreenVisibility((prev) => !prev);
 
@@ -45,7 +49,9 @@ export default function App() {
 		}
 	}
 
+	// responsible for incrementing the questions number
 	function nextQuestion() {
+		// runs if we're on the last question
 		if (document.getElementById('next').innerHTML === 'Finish') {
 			document.getElementById('finish').style.visibility = 'visible';
 			document.getElementById('text').innerHTML = '';
@@ -85,6 +91,7 @@ export default function App() {
 			return;
 		}
 
+		// makes the points text flash red
 		if (document.getElementById('next').innerHTML === 'Skip') {
 			document.getElementById('points').classList.toggle('alt2');
 
@@ -93,14 +100,16 @@ export default function App() {
 			}, 2000);
 		}
 
+		// increments the count
 		updateValues('+');
 	}
 
+	// responsible for decrementing the questions number
 	function previousQuestion() {
 		updateValues('-');
 	}
 
-	// tar in en parameter
+	// updates all the things you see on the main page
 	function updateValues(type) {
 		switch (type) {
 			case '+':
@@ -112,6 +121,7 @@ export default function App() {
 			default:
 		}
 
+		// destructure and take out from the JSON file
 		const {
 			question,
 			code,
@@ -125,6 +135,7 @@ export default function App() {
 		document.getElementById('question').innerHTML = question;
 		document.getElementById('output').innerHTML = '';
 
+		// is current questions contains "title", display the info box
 		if (title) {
 			document.getElementById('title').innerHTML = title;
 			document.getElementById('beforeCode').innerHTML = infoBeforeCode;
@@ -133,6 +144,7 @@ export default function App() {
 			toggleInfoScreen();
 		}
 
+		// set all values to current question
 		setCode(code);
 		setUserCode(code);
 		setKeywords(
@@ -152,20 +164,23 @@ export default function App() {
 			'Correct! Press the "Next" button to proceed to the next question!';
 
 		try {
-			const res = eval(`${content}\n${assert}`);
+			const res = eval(`${content}\n${assert}`); // put our logic at the end of the users input to "eval" can return true or false
 
-			if (res) {
+			if (res) { // if its true
 				output.style.color = '#00ff00';
 				output.innerHTML = correctMessage;
 			} else {
+				// if its false
 				throw new EvalError(errorMessage);
 			}
 		} catch (err) {
+			// if its false
 			output.style.color = '#ff0000';
 			console.error(err);
 			output.innerHTML = err;
 		}
 
+		// if the eval returned true and the users hasn't already answered the question successfully, give them points and flash the points text green
 		if (
 			output.innerHTML === correctMessage &&
 			!completedQuestions.includes(count.current)
@@ -184,6 +199,7 @@ export default function App() {
 		}
 	}
 
+	// runs upon the first visit, sets initial values 
 	useEffect(() => {
 		updateValues();
 
@@ -192,6 +208,7 @@ export default function App() {
 		setSkippedQuestions([]);
 	}, []);
 
+	// what will be rendered
 	return (
 		<div id='container'>
 			<div id='intro'>

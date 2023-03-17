@@ -20,7 +20,7 @@
 			"console.log(name); // Output: Mary",
 			"",
 			"// Using const",
-			"var name = 'John';",
+			"const name = 'John';",
 			"name = 'Mary'; // Error: Assignment to constant variable",
 			"console.log(name); // Output: Mary"
 		]
