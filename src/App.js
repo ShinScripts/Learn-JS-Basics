@@ -208,7 +208,7 @@ export default function App() {
 	// runs upon the first visit, sets initial values 
 	useEffect(() => {
 		updateValues();
-
+		
 		setInfoScreenVisibility(true);
 		setCompletedQuestions([]);
 		setSkippedQuestions([]);
