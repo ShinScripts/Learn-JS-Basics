@@ -22,26 +22,28 @@ export default function App() {
 
 	// the restart function to set the game to its initial stage
 	function restart() {
-		count.current = 0;
-		setPoints(0);
+		count.current = 0; // set question number to 0
+		setPoints(0); // set points to 0
 
-		updateValues();
+		updateValues(); 
 
-		setInfoScreenVisibility(true);
-		setCompletedQuestions([]);
-		setSkippedQuestions([]);
+		setInfoScreenVisibility(true); // set the info screen to show 
+		setCompletedQuestions([]); // remove all completed questions
+		setSkippedQuestions([]); // remove all skipped questions
 
+		// set the finish screens back to their initial state, hidden
 		document.getElementById('finish').style.visibility = 'hidden';
 		document.getElementById('finish').style.opacity = '0%';
-		document.getElementById('intro').style.visibility = 'visible';
+		document.getElementById('intro').style.visibility = 'visible'; // show the intro screen
 	}
 
 	// toggles the info screen
 	function toggleInfoScreen() {
-		setInfoScreenVisibility((prev) => !prev);
+		setInfoScreenVisibility((prev) => !prev); // set the value to its inverse
 
 		const infoHolder = document.getElementById('infoHolder');
 
+		// toggle the visibility
 		if (!infoScreenVisibility) {
 			infoHolder.style.visibility = 'visible';
 		} else {
@@ -56,6 +58,7 @@ export default function App() {
 			document.getElementById('finish').style.visibility = 'visible';
 			document.getElementById('text').innerHTML = '';
 
+			// set a delay before the text is shown
 			setTimeout(() => {
 				let text;
 
@@ -75,16 +78,17 @@ export default function App() {
 					setTimeout(() => {
 						document.getElementById('text').innerHTML += char;
 					}, interval);
-					interval += 50;
+					interval += 50; // add extra time for each character so they dont all render in together
 				}
 			}, 1000);
 
 			let i = 0;
 
+			// slowly fade in the finish screen
 			const i1 = setInterval(() => {
 				if (i > 99) clearInterval(i1);
 
-				document.getElementById('finish').style.opacity = `${i}%`;
+				document.getElementById('finish').style.opacity = `${i}%`; // set the opacity
 				i++;
 			}, 10);
 
@@ -132,10 +136,10 @@ export default function App() {
 			infoCode,
 		} = questions[count.current];
 
-		document.getElementById('question').innerHTML = question;
-		document.getElementById('output').innerHTML = '';
+		document.getElementById('question').innerHTML = question; //set the questions 
+		document.getElementById('output').innerHTML = ''; // remove the previous output
 
-		// is current questions contains "title", display the info box
+		// is current questions contains a info "title", display the info box
 		if (title) {
 			document.getElementById('title').innerHTML = title;
 			document.getElementById('beforeCode').innerHTML = infoBeforeCode;
@@ -147,6 +151,8 @@ export default function App() {
 		// set all values to current question
 		setCode(code);
 		setUserCode(code);
+
+		// used to randomize the keywords
 		setKeywords(
 			keywords
 				.map((value) => ({ value, sort: Math.random() }))
@@ -166,7 +172,8 @@ export default function App() {
 		try {
 			const res = eval(`${content}\n${assert}`); // put our logic at the end of the users input to "eval" can return true or false
 
-			if (res) { // if its true
+			if (res) {
+				// if its true
 				output.style.color = '#00ff00';
 				output.innerHTML = correctMessage;
 			} else {
@@ -185,17 +192,16 @@ export default function App() {
 			output.innerHTML === correctMessage &&
 			!completedQuestions.includes(count.current)
 		) {
-			console.log(count.current, skippedQuestions);
+			setPoints((prev) => prev + 100); // add 100 points
 
-			setPoints((prev) => prev + 100);
-
+			// make the text flash green
 			document.getElementById('points').classList.toggle('alt');
 
 			setTimeout(() => {
 				document.getElementById('points').classList.toggle('alt');
 			}, 2000);
 
-			setCompletedQuestions((prev) => [...prev, count.current]);
+			setCompletedQuestions((prev) => [...prev, count.current]); // add it to completed questions so the player cant get points multiple times
 		}
 	}
 
